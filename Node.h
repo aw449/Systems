@@ -1,12 +1,12 @@
 /*
  * Node.h
- *
- *  Created on: Feb 18, 2015
- *      Author: Anthony
+
  */
 
 #ifndef NODE_H_
 #define NODE_H_
+
+#include <stdlib.h>
 
 struct Node{
 	int *referencecount;
@@ -15,11 +15,13 @@ struct Node{
 };
 typedef struct Node* NodePtr;
 
-void setNext(NodePtr NextNode);
 
 NodePtr NodeCreate(void * myObj);
 
+void NodeDestroy(NodePtr Node);
+
 void incrementreference(NodePtr Node);
+
 void decrementreference(NodePtr Node);
 
 #endif /* NODE_H_ */
