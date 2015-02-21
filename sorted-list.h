@@ -4,8 +4,8 @@
  * sorted-list.h
  */
 
-#include <stdlib.h>
-#include "Node.h"
+//#include <stdlib.h>
+#include "Node.h"//I wonder if stdlib has multiple inclusion protection. 
 /*
  * Sorted list type.  You need to fill in the type as part of your implementation.
  */

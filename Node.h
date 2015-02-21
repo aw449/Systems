@@ -21,7 +21,10 @@ NodePtr NodeCreate(void * myObj);
 void NodeDestroy(NodePtr Node);
 
 void incrementreference(NodePtr Node);
+/*Returns the number of references remaining.
+ *Make sure to delete the data in sorted-list.c if return is 0.
+ */
 
-void decrementreference(NodePtr Node);
+int decrementreference(NodePtr Node);
 
-#endif /* NODE_H_ */
+#endif  /*NODE_H_*/
