@@ -43,7 +43,7 @@ int main(){
 		a = &i;
 		obj = a;
 
-		if(SLInsert(List, obj) == 0){
+		if(SLInsert(List, obj) == 1){
 			printf("Insertion Success \n");
 		}
 	}
