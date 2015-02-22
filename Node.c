@@ -16,7 +16,7 @@ NodePtr NodeCreate(void * myObj){
 
 void NodeSeppuku(NodePtr Node){
 	Node->next = NULL;
-	Node->Seppuku(Node);
+	Node->Seppuku(Node->data);
 	free(Node);
 }
 

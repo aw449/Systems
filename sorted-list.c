@@ -22,8 +22,7 @@ void SLDestroy(SortedListPtr list){
 	NodetoDelete = list->Headptr;
 	list->Headptr = list->Headptr->next;
 
-	list->Destruct(NodetoDelete->data);
-	NodeDestroy(NodetoDelete);
+	NodeSeppuku(NodetoDelete);
 	}
 	free(list);
 }
@@ -45,7 +44,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 void SLDestroyIterator(SortedListIteratorPtr iter){
 	//The node that the iterator is pointing to loses a referencecount when iterator is removed
 	if(decrementreference(iter->Node) == 0){
-		iter->Node->Seppuku(iter->Node->data);
+		NodeSeppuku(iter->Node);
 	}
 	free(iter);
 }
@@ -57,7 +56,7 @@ void *SLNextItem(SortedListIteratorPtr iter){
 	if(decrementreference(iter->Node)== 0){
 		//NO ACCESS TO DESTRUCT FUNCTION CANNOT DESTROY
 		//MUST DESTROY MUST DESTORY MUST DESTROY
-		iter->Seppuku(iter->Node->data);
+		NodeSeppuku(iter->Node);
 	}
 	iter->Node = iter->Node->next;
 	incrementreference(iter->Node);
@@ -110,7 +109,7 @@ int SLRemove(SortedListPtr list, void *newObj){
 	prevNode->next = Iter->Node->next;
 	if(decrementreference(Iter->Node) == 0){ //Decrement the reference count & if refcount == 0 delete the node and data
 		NodeSeppuku(Iter->Node);
-		list->Destruct(Iter->Node->data);
+
 	}
 	SLDestroyIterator(Iter); // Destroy temp iterator
 	return 1;
