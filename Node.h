@@ -12,13 +12,14 @@ struct Node{
 	int referencecount;
 	struct Node *next;
 	void *data;
+	void (*Seppuku)(void*);
 };
 typedef struct Node* NodePtr;
 
 
 NodePtr NodeCreate(void * myObj);
 
-void NodeDestroy(NodePtr Node);
+void NodeSeppuku(NodePtr Node);
 
 void incrementreference(NodePtr Node);
 

@@ -14,8 +14,9 @@ NodePtr NodeCreate(void * myObj){
 }
 
 
-void NodeDestroy(NodePtr Node){
+void NodeSeppuku(NodePtr Node){
 	Node->next = NULL;
+	Node->Seppuku(Node);
 	free(Node);
 }
 
