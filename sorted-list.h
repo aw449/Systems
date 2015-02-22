@@ -4,8 +4,8 @@
  * sorted-list.h
  */
 
-//#include <stdlib.h>
-#include "Node.h"//I wonder if stdlib has multiple inclusion protection. 
+
+#include "Node.h"
 /*
  * Sorted list type.  You need to fill in the type as part of your implementation.
  */
@@ -25,7 +25,7 @@ typedef struct SortedList* SortedListPtr;
  */
 struct SortedListIterator
 {
-	NodePtr Iterator;
+	NodePtr Node;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 

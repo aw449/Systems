@@ -15,7 +15,6 @@ NodePtr NodeCreate(void * myObj){
 
 
 void NodeDestroy(NodePtr Node){
-	//free((Node->data));
 	Node->next = NULL;
 	free(Node);
 }
@@ -25,6 +24,7 @@ void incrementreference(NodePtr Node){
 }
 
 int decrementreference(NodePtr Node){
+
 	Node->referencecount--;
-	return referencecount;
+	return (Node->referencecount);
 }
