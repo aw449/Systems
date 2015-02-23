@@ -18,12 +18,12 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 void SLDestroy(SortedListPtr list){
 	//Destroy the list
 	while(list->Headptr != NULL){
-	//NodePtr NodetoDelete = malloc(sizeof(NodePtr));
-	NodePtr NodetoDelete;
-	NodetoDelete = list->Headptr;
-	list->Headptr = list->Headptr->next;
-
-	NodeSeppuku(NodetoDelete);
+		//NodePtr NodetoDelete = malloc(sizeof(NodePtr));
+		NodePtr NodetoDelete;
+		NodetoDelete = list->Headptr;
+		list->Headptr = list->Headptr->next;
+	
+		NodeSeppuku(NodetoDelete);
 	}
 	free(list);
 	list = NULL;
@@ -125,28 +125,28 @@ int SLRemove(SortedListPtr list, void *newObj){
 	NodePtr prevNode = NULL;
 	void *Comparator; //Samething as in Slinsert
 	if(list->Headptr != NULL){
-	Comparator= SLGetItem(Iter);
+		Comparator= SLGetItem(Iter);
 
-	while(list->Compare(Comparator, newObj) != 0){
+		while(list->Compare(Comparator, newObj) != 0){
 				prevNode = Iter->Node;
 				Comparator = SLNextItem(Iter);
-				if(Comparator == NULL){ //if object not found and comparator has reached the end of the list....end and return failure
+					if(Comparator == NULL){ //if object not found and comparator has reached the end of the list....end and return failure
 					return 0;
 				}
-			}
-
-	if(prevNode != NULL){
-
+		}
+		
+		if(prevNode != NULL){
+	
 			prevNode->next = Iter->Node->next;
 		}
-	else{
-			list->Headptr = Iter->Node->next;
+		else{
+				list->Headptr = Iter->Node->next;
 		}
-	if(decrementreference(Iter->Node) == 0){
-		NodeSeppuku(Iter->Node);
-	}
-	SLDestroyIterator(Iter); // Destroy temp iterator
-	return 1;
+		if(decrementreference(Iter->Node) == 0){
+			NodeSeppuku(Iter->Node);
+		}
+		SLDestroyIterator(Iter); // Destroy temp iterator
+		return 1;
 	}
 	SLDestroyIterator(Iter); // Destroy temp iterator
 	return 0;
