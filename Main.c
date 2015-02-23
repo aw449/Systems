@@ -24,7 +24,7 @@ int CompareInts(void *a, void *b){
 
 void Destruct(void *a){
 
-	//free(a);
+	free(a);
 	//a = NULL;
 }
 
@@ -64,8 +64,8 @@ int main(){
 
 	//Can the iterator still access the list?
 	while( *b > 1){
-	b = (int*) SLNextItem(Iter);
-	printf("%d ", *b);
+		b = (int*) SLNextItem(Iter);
+		printf("%d ", *b);
 	}
 	//Success if Output is 10 8 7 6...
 	SLDestroy(List);
