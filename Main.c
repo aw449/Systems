@@ -25,7 +25,7 @@ int CompareInts(void *a, void *b){
 void Destruct(void *a){
 
 	free(a);
-	//a = NULL;
+
 }
 
 typedef int (*functiontype)(void*, void*);

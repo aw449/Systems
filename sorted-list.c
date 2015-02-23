@@ -74,7 +74,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 	NodePtr newNode;	//newNode object
 	NodePtr prevNode;
 	void *Comparator;//Comparator is data from the list to compare; starts from data in headptr
-	newNode = NodeCreate(newObj); //Create a Node containing given data
+	newNode = NodeCreate(newObj, (list->Destruct)); //Create a Node containing given data
 	prevNode = NULL;
 	if(list->Headptr == NULL)  //if the list is empty just make headptr point to the newNode
 		{

@@ -17,7 +17,7 @@ struct Node{
 typedef struct Node* NodePtr;
 
 
-NodePtr NodeCreate(void * myObj);
+NodePtr NodeCreate(void * myObj,void (*Seppuku)(void*));
 
 void NodeSeppuku(NodePtr Node);
 

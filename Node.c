@@ -5,9 +5,9 @@
 
 
 #include "Node.h"
-NodePtr NodeCreate(void * myObj){
+NodePtr NodeCreate(void * myObj, void (*Seppuku)(void*)){
 	NodePtr newNode =(NodePtr) malloc(sizeof(struct Node));
-	//NodePtr newNode;
+	newNode->Seppuku = (Seppuku);
 	newNode->data = myObj;
 	newNode->next = NULL;
 	newNode->referencecount = 0;
