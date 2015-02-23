@@ -6,7 +6,8 @@
 
 #include "Node.h"
 NodePtr NodeCreate(void * myObj){
-	NodePtr newNode = malloc(sizeof(NodePtr));
+	NodePtr newNode =(NodePtr) malloc(sizeof(struct Node));
+	//NodePtr newNode;
 	newNode->data = myObj;
 	newNode->next = NULL;
 	newNode->referencecount = 0;
@@ -18,6 +19,7 @@ void NodeSeppuku(NodePtr Node){
 	Node->next = NULL;
 	Node->Seppuku(Node->data);
 	free(Node);
+
 }
 
 void incrementreference(NodePtr Node){

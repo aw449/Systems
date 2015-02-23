@@ -4,6 +4,7 @@
  */
 
 #include "sorted-list.h"
+#include <stdio.h>
 
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 	SortedListPtr newList = malloc(sizeof(SortedListPtr));
@@ -25,6 +26,7 @@ void SLDestroy(SortedListPtr list){
 	NodeSeppuku(NodetoDelete);
 	}
 	free(list);
+	list = NULL;
 }
 
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
@@ -43,10 +45,14 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 
 void SLDestroyIterator(SortedListIteratorPtr iter){
 	//The node that the iterator is pointing to loses a referencecount when iterator is removed
+	if((iter->Node != NULL)){
 	if(decrementreference(iter->Node) == 0){
 		NodeSeppuku(iter->Node);
 	}
+	}
+
 	free(iter);
+
 }
 void *SLGetItem( SortedListIteratorPtr iter ){
 	return iter->Node->data;
@@ -67,29 +73,49 @@ int SLInsert(SortedListPtr list, void *newObj){
 	SortedListIteratorPtr Iter = SLCreateIterator(list); 	//Create a temporary iterator
 	NodePtr newNode;	//newNode object
 	NodePtr prevNode;
-	void *Comparator = SLGetItem(Iter); //Comparator is data from the list to compare; starts from data in headptr
-	newNode = NodeCreate(newObj);  //Create a Node containing given data
+	void *Comparator;//Comparator is data from the list to compare; starts from data in headptr
+	newNode = NodeCreate(newObj); //Create a Node containing given data
+	prevNode = NULL;
 	if(list->Headptr == NULL)  //if the list is empty just make headptr point to the newNode
 		{
+
 		list->Headptr = newNode;
 		incrementreference(newNode);
 		return 1;
 		}
 	else {
-		while(list->Compare(Comparator, newObj) > 0){ //If the compare function returns >0 means if newObj is less than or equal to compared object (List is ordered from largest to smallest
+
+		Comparator = SLGetItem(Iter);
+
+		while(list->Compare(Comparator, newObj) > 0 && Comparator != NULL){ //If the compare function returns >0 means if newObj is less than or equal to compared object (List is ordered from largest to smallest
 			prevNode = Iter->Node;
 			Comparator = SLNextItem(Iter);
+
 		}
-		if (list->Compare(Comparator, newObj) == 0){ //Throw out if duplicate is found
+		if(Comparator == NULL){
+
+			Iter->Node->next = newNode;
+			incrementreference(newNode);
+		}
+		else if (list->Compare(Comparator, newObj) == 0){ //Throw out if duplicate is found
+
+			SLDestroyIterator(Iter);
 			return 0;
 		}
 		else {
-			prevNode->next = newNode;
 			newNode->next = Iter->Node;
 			incrementreference(newNode);
+			if(prevNode != NULL){
+				prevNode->next = newNode;
+			}
+			else{
+				list->Headptr = newNode;
+			}
 		}
+
 		SLDestroyIterator(Iter);
 		return 1;
+
 	}
 
 }
