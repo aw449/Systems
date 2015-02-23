@@ -46,9 +46,9 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 void SLDestroyIterator(SortedListIteratorPtr iter){
 	//The node that the iterator is pointing to loses a referencecount when iterator is removed
 	if((iter->Node != NULL)){
-	if(decrementreference(iter->Node) == 0){
-		NodeSeppuku(iter->Node);
-	}
+		if(decrementreference(iter->Node) == 0){
+			NodeSeppuku(iter->Node);
+		}
 	}
 
 	free(iter);
@@ -58,13 +58,13 @@ void *SLGetItem( SortedListIteratorPtr iter ){
 	return iter->Node->data;
 }
 void *SLNextItem(SortedListIteratorPtr iter){
-
-	if(decrementreference(iter->Node)== 0){
-		//NO ACCESS TO DESTRUCT FUNCTION CANNOT DESTROY
-		//MUST DESTROY MUST DESTORY MUST DESTROY
-		NodeSeppuku(iter->Node);
-	}
+	int ref = decrementreference(iter->Node);
+	NodePtr temp;
+	temp = iter->Node;
 	iter->Node = iter->Node->next;
+	if(ref == 0){
+		NodeSeppuku(temp);
+	}
 	incrementreference(iter->Node);
 	return iter->Node->data;
 
@@ -122,8 +122,11 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 int SLRemove(SortedListPtr list, void *newObj){
 	SortedListIteratorPtr Iter = SLCreateIterator(list); //Temp iterator
-	NodePtr prevNode;
-	void *Comparator = SLGetItem(Iter); //Samething as in Slinsert
+	NodePtr prevNode = NULL;
+	void *Comparator; //Samething as in Slinsert
+	if(list->Headptr != NULL){
+	Comparator= SLGetItem(Iter);
+
 	while(list->Compare(Comparator, newObj) != 0){
 				prevNode = Iter->Node;
 				Comparator = SLNextItem(Iter);
@@ -132,12 +135,20 @@ int SLRemove(SortedListPtr list, void *newObj){
 				}
 			}
 
-	prevNode->next = Iter->Node->next;
-	if(decrementreference(Iter->Node) == 0){ //Decrement the reference count & if refcount == 0 delete the node and data
-		NodeSeppuku(Iter->Node);
+	if(prevNode != NULL){
 
+			prevNode->next = Iter->Node->next;
+		}
+	else{
+			list->Headptr = Iter->Node->next;
+		}
+	if(decrementreference(Iter->Node) == 0){
+		NodeSeppuku(Iter->Node);
 	}
 	SLDestroyIterator(Iter); // Destroy temp iterator
 	return 1;
+	}
+	SLDestroyIterator(Iter); // Destroy temp iterator
+	return 0;
 }
 

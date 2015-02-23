@@ -50,12 +50,24 @@ int main(){
 
 	SortedListIteratorPtr Iter = SLCreateIterator(List);
 
+	//Print First Value
 	b = (int*) SLGetItem(Iter);
 	printf("%d ", *b);
+
+	//Move to second Node 9 but do not print out
+	b = (int*) SLNextItem(Iter);
+
+	//Remove Node 9 but keep iterator pointing to it
+	int k = 9;
+	obj = &k;
+	SLRemove(List,obj);
+
+	//Can the iterator still access the list?
 	while( *b > 1){
 	b = (int*) SLNextItem(Iter);
 	printf("%d ", *b);
 	}
+	//Success if Output is 10 8 7 6...
 	SLDestroy(List);
 	return 0;
 }
