@@ -22,11 +22,10 @@ void SLDestroy(SortedListPtr list){
 		NodePtr NodetoDelete;
 		NodetoDelete = list->Headptr;
 		list->Headptr = list->Headptr->next;
-	
 		NodeSeppuku(NodetoDelete);
 	}
 	free(list);
-	list = NULL;
+
 }
 
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
@@ -97,12 +96,8 @@ int SLInsert(SortedListPtr list, void *newObj){
 			Comparator = SLNextItem(Iter);
 
 		}
-		if(Comparator == NULL){
 
-			Iter->Node->next = newNode;
-			incrementreference(newNode);
-		}
-		else if (list->Compare(Comparator, newObj) == 0){ //Throw out if duplicate is found
+		if (list->Compare(Comparator, newObj) == 0){ //Throw out if duplicate is found
 
 			SLDestroyIterator(Iter);
 			return 0;
@@ -130,7 +125,7 @@ int SLRemove(SortedListPtr list, void *newObj){
 	NodePtr prevNode = NULL;
 	void *Comparator; //Samething as in Slinsert
 	if(list->Headptr != NULL){
-		Comparator= SLGetItem(Iter);
+		Comparator = SLGetItem(Iter);
 
 		while(list->Compare(Comparator, newObj) != 0){
 				prevNode = Iter->Node;

@@ -61,6 +61,8 @@ int main(){
 	SortedListPtr List;
 	SortedListIteratorPtr Iter;
 	SortedListIteratorPtr it;
+	SortedListIteratorPtr alice;
+	SortedListIteratorPtr whiterabbit;
 	List = SLCreate(compare, dest);
 	for(i = 0; i < 10; i++){
 
@@ -70,9 +72,16 @@ int main(){
 			printf("Insertion Success \n");
 		}
 	}
+
+	printf("Inserting a duplicate value 3 \n");
+	obj = make(3);
+	SLInsert(List, obj);
+
 	Iter = SLCreateIterator(List);
 	it = SLCreateIterator(List);
-	printf("Printing out all of the items in the list \n");
+	alice = SLCreateIterator(List);
+	whiterabbit = SLCreateIterator(List);
+	printf("Printing out all of the items in the list(There should only be a single 3) \n");
 
 	b = (foolptr) SLGetItem(Iter);
 	printf("%d ", b->comparator);
@@ -103,24 +112,39 @@ int main(){
 
 	printf("Can the iterator still access the list?(If output is 7 6 5 4 3 2 1 0 Success) \n");
 	while (b !=NULL){
-
 		b = (foolptr) SLNextItem(it);
 		if(b != NULL){
 			printf("%d ", b->comparator);
 			}
 		}
-	printf("\nYes! Success!");
+	printf("\nYes! Success! \n");
 
 	SLDestroyIterator(it);
 	SLDestroyIterator(Iter);
-	SLDestroy(List);
-	printf("\n Checking if fully destroyed \n");
-	it = SLCreateIterator(List);
-	if(it == NULL){
-		printf ("There is nothing to point to...the list has been removed");
+
+	printf("Second Test \n");
+	printf("Removing all nodes in the list while an iterator is still pointing to it \n");
+
+	obj = SLGetItem(whiterabbit);
+	while(obj != NULL){
+		SLRemove(List,obj);
+		obj = SLNextItem(whiterabbit);
 	}
-	else
-		printf("Failed to destroy");
+
+	b = (foolptr) SLGetItem(alice);
+	printf("%d ", b->comparator);
+
+	while (b !=NULL){
+		b = (foolptr) SLNextItem(alice);
+		if(b != NULL){
+			printf("%d ", b->comparator);
+		}
+	}
+
+	SLDestroy(List);
+
+
+
 	return 0;
 }
 
