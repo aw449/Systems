@@ -15,7 +15,7 @@ typedef struct fool* foolptr;
 	 tony->comparator = a;
 	 tony-> what = malloc(tony->comparator*sizeof(float*));
 	 for(coo = 0; coo < a; coo++){
-		 tony->what[coo] = (float*)a;
+		 tony->what[coo] = 0;
 	 }
 
 
@@ -140,6 +140,9 @@ int main(){
 			printf("%d ", b->comparator);
 		}
 	}
+
+	SLDestroyIterator(whiterabbit);
+	SLDestroyIterator(alice);
 
 	SLDestroy(List);
 
