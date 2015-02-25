@@ -7,24 +7,28 @@ struct fool{
 	float **what;
 	char *b;
 };
-typedef struct fool foolptr;
+typedef struct fool* foolptr;
 
  foolptr make(int a){
 	 int coo;
 	 foolptr tony = malloc(sizeof(foolptr));
 	 tony->comparator = a;
-	 tony-> what = malloc(comparator*sizeof(float*));
+	 tony-> what = malloc(tony->comparator*sizeof(float*));
 	 for(coo = 0; coo < a; coo++){
-		what[coo] = (float)a; 
+		 tony->what[coo] = (float*)a;
 	 }
 	 tony->b = "A string";
+
+	 return tony;
  }
 
 
 /*take fools, pull the int out and compare em.*/
 int CompareInts(void *a, void *b){
-	int first = (a->comparator);
-	int second = (b->comparator);
+	foolptr lol = (struct fool*) a;
+	foolptr nein = (struct fool*)b;
+	int first = (lol->comparator);
+	int second = (nein->comparator);
 	if(first > second){
 		return 1;
 
@@ -39,8 +43,9 @@ int CompareInts(void *a, void *b){
 void Destruct(void *a){
 	/*the void *a is a fool struct. */
 	/*We're assured that the strings are null terminated. But we'll use strnlen for good practice.*/
-	int len;
-	free(a->what);
+	foolptr lol = (struct fool*) a;
+	//int len;
+	free(lol->what);
 	free(a);
 }
 
@@ -48,7 +53,9 @@ typedef int (*functiontype)(void*, void*);
 typedef void (*function)(void*);
 
 int main(){
-	int *b;
+	foolptr b;
+	int i;
+	void* obj;
 	functiontype compare= &CompareInts;
 	function dest = &Destruct;
 	SortedListPtr List;
@@ -61,25 +68,16 @@ int main(){
 			printf("Insertion Success \n");
 		}
 	}
-		//Print First Value
-	b = (int*) SLGetItem(Iter);
-	printf("%d ", *b);
+	SortedListIteratorPtr Iter = SLCreateIterator(List);
+	b = (foolptr) SLGetItem(Iter);
+	printf("%d ", b->comparator);
+	b = (foolptr) SLNextItem(Iter);
 
-	//Move to second Node 9 but do not print out
-	b = (int*) SLNextItem(Iter);
+	while (b !=NULL){
+	printf("%d ", b->comparator);
+	b = (foolptr) SLNextItem(Iter);
 
-	//Remove Node 9 but keep iterator pointing to it
-	int k = 9;
-	obj = &k;
-	SLRemove(List,obj);
-
-	//Can the iterator still access the list?
-	while( *b > 1){
-		b = (int*) SLNextItem(Iter);
-		printf("%d ", *b);
 	}
-	//Success if Output is 10 8 7 6...
-	SLDestroy(List);
 	return 0;
 }
 

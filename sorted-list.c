@@ -62,9 +62,14 @@ void *SLNextItem(SortedListIteratorPtr iter){
 	NodePtr temp;
 	temp = iter->Node;
 	iter->Node = iter->Node->next;
+	if(iter->Node == NULL){
+		return NULL;
+	}
 	if(ref == 0){
 		NodeSeppuku(temp);
 	}
+
+
 	incrementreference(iter->Node);
 	return iter->Node->data;
 
