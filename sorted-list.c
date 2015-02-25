@@ -145,7 +145,7 @@ int SLRemove(SortedListPtr list, void *newObj){
 		if(decrementreference(Iter->Node) == 0){
 			NodeSeppuku(Iter->Node);
 		}
-		else{
+		else if(Iter->Node->next!= NULL){
 			incrementreference(Iter->Node->next);//desu
 		}
 		SLDestroyIterator(Iter); // Destroy temp iterator
