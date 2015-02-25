@@ -1,0 +1,89 @@
+Features and Functions
+The Sorted List data type has the ability to store an unknown data type, sort it based on user specification, remove the data type and iterate through the list to access each individual data type
+
+ Test Items
+
+Creating a List and Inserting objects into a list	
+* Expected Input: User Provided Compare and Destruct Functions and User data
+* Expected Output: Data is placed into the list in sorted order largest to smallest
+* Error: User fails to provide proper compare and destruct functions.
+* Example: User inputs integers values 1-9.  List should contain values 9- 1
+* Special Considerations: When a duplicate is entered it should be ignored
+* Sample Code:
+	for(i = 0; i < 10; i++){
+
+		obj = make(i);
+
+		if(SLInsert(List, obj) == 1){
+			printf("Insertion Success \n");
+		}
+}
+OUTPUT:
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Insertion Success 
+	Inserting a duplicate value 3 
+	Printing out all of the items in the list(There should only be a single 3) 
+	9 8 7 6 5 4 3 2 1 0
+     
+Removing Objects from a list
+* Expected Input: User Provides a data they wish to remove
+* Expected Output: Data is removed from the list
+* Example: User wishes to remove integer 9 from the list; List should no longer contain 8.
+* Special Considerations: When an iterator still points to a removed the node; the node should still remain live until the iterator moves to the next object in the list
+* Sample Code:
+	printf("Removing... \n");
+	k = make(8);
+	obj = k;
+	SLRemove(List,obj);
+
+	printf("Can the iterator still access the list?(If output is 7 6 5 4 3 2 1 0 Success) 	\n");
+	while (b !=NULL){
+		b = (foolptr) SLNextItem(it);
+		if(b != NULL){
+			printf("%d ", b->comparator);
+			}
+		}
+
+
+OUTPUT:
+	Removing... 
+	Can the iterator still access the list?(If output is 7 6 5 4 3 2 1 0 Success) 
+	7 6 5 4 3 2 1 0
+
+The iterator was pointing to node 8 and was still able to access values 7-0 in the list.
+
+Iterating through the list
+* Expected Input: User provides the list they wish to create an iterator for; User can then use functions SLGetItem and SLNextItem to retrieve items in the list
+* Expected Output: SLGetItem should return current item, SLNextItem should return next item
+* Special Considerations: Even if a node is removed from a list, if at least one live pointer is pointing to that node, the node should not be destroyed
+Sample Code: 
+	printf("Removing all nodes in the list while an iterator is still pointing to it \n");
+
+	obj = SLGetItem(whiterabbit);
+	while(obj != NULL){
+		SLRemove(List,obj);
+		obj = SLNextItem(whiterabbit);
+	}
+
+	b = (foolptr) SLGetItem(alice);
+	printf("%d ", b->comparator);
+
+	while (b !=NULL){
+		b = (foolptr) SLNextItem(alice);
+		if(b != NULL){
+			printf("%d ", b->comparator);
+		}
+}
+OUTPUT:
+	Removing all nodes in the list while an iterator is still pointing to it 
+	9 7 6 5 4 3 2 1 0
+
+All values in the list were 'removed' while an iterator still pointed to the first node.  The iterator was able to run through the list.
