@@ -1,0 +1,31 @@
+
+Test case 9: Create a lot of iterators on a single list: 
+	Test9a: Iter got Alpha
+
+	Test9b: Iter got Bravo
+	Test9b: Iter got Alpha
+
+	Test9c: Iter got Charlie
+	Test9c: Iter got Bravo
+	Test9c: Iter got Alpha
+
+	Test9d: Iter got Delta
+	Test9d: Iter got Charlie
+	Test9d: Iter got Bravo
+	Test9d: Iter got Alpha
+
+	Test9e: Iter got Echo
+	Test9e: Iter got Delta
+	Test9e: Iter got Charlie
+	Test9e: Iter got Bravo
+	Test9e: Iter got Alpha
+
+
+Test case 11: Check if iterator correctly handles removed elements: 
+	Test11a: Iter got 5
+	Test11a: Iter got 2
+	Test11a: Iter got 1
+
+	Test11b: Iter got 4
+	Test11b: Iter got 2
+	Test11b: Iter got 1
