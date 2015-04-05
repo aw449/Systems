@@ -39,7 +39,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 		return newIterator;
 	}
 	else
-		return NULL;
+		return newIterator;
 }
 
 void SLDestroyIterator(SortedListIteratorPtr iter){
