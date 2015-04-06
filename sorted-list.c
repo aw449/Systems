@@ -100,9 +100,8 @@ int SLInsert(SortedListPtr list, void *newObj){
 		}
 	else {
 
-		if((Comparator = SLGetItem(Iter))== NULL){
-			return 0;
-		}
+		Comparator = SLGetItem(Iter);
+		
 
 		while(Comparator != NULL && list->Compare(Comparator, newObj) > 0){ //If the compare function returns >0 means if newObj is less than or equal to compared object (List is ordered from largest to smallest
 			prevNode = Iter->Node;
@@ -110,7 +109,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 		}
 
-		if (list->Compare(Comparator, newObj) == 0){ //Throw out if duplicate is found
+		if (Comparator != NULL && list->Compare(Comparator, newObj) == 0){ //Throw out if duplicate is found
 
 			SLDestroyIterator(Iter);
 			return 0;
