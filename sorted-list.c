@@ -100,7 +100,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 		}
 	else {
 
-		if(Comparator = SLGetItem(Iter)== NULL){
+		if((Comparator = SLGetItem(Iter))== NULL){
 			return 0;
 		}
 
