@@ -102,7 +102,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 		Comparator = SLGetItem(Iter);
 
-		while(list->Compare(Comparator, newObj) > 0 && Comparator != NULL){ //If the compare function returns >0 means if newObj is less than or equal to compared object (List is ordered from largest to smallest
+		while(Comparator != NULL && list->Compare(Comparator, newObj) > 0){ //If the compare function returns >0 means if newObj is less than or equal to compared object (List is ordered from largest to smallest
 			prevNode = Iter->Node;
 			Comparator = SLNextItem(Iter);
 
