@@ -133,7 +133,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 int SLRemove(SortedListPtr list, void *newObj){
 	if(list == NULL || newObj == NULL){
-		return NULL;
+		return 0;
 	}
 	SortedListIteratorPtr Iter = SLCreateIterator(list); //Temp iterator
 	NodePtr prevNode = NULL;

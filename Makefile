@@ -1,16 +1,22 @@
-CC = gcc
-CFLAGS = -Wall -g -pedantic -std=c99
+CC=gcc
+CCFLAGS= -Wall -g
+OBJECTS = Main.o Node.o sorted-list.o
 
-all: pa2_test
+all:  $(OBJECTS)
+	ar -rcs libsl.a Node.o sorted-list.o
+	$(CC)  Main.o -L. libsl.a  -o sl
 
-#sorted-list.o: sorted-list.c
-#	$(CC) $(FLAGS) -c sorted-list.c
-	
-#libsl.a: sorted-list.o
-#	ar rvs libsl.a sorted-list.o
+Main.o: Main.c 
+	$(CC) $(CCFLAGS) -c Main.c
 
-pa2_test: pa2_test.c libsl.a
-	$(CC) $(FLAGS) -o $@ $^
+Node.o: Node.c Node.h
+	$(CC) $(CCFLAGS) -c Node.c
 
+sorted-list.o: sorted-list.c sorted-list.h
+	$(CC) $(CCFLAGS) -c sorted-list.c
+
+.PHONY : clean
 clean:
-	@rm -f pa2_test
+	rm -f *.o
+	rm sl
+	rm libsl.a

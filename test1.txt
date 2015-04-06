@@ -29,3 +29,53 @@ Test case 11: Check if iterator correctly handles removed elements:
 	Test11b: Iter got 4
 	Test11b: Iter got 2
 	Test11b: Iter got 1
+
+Note: No expected output for test cases 1-5, if correct.
+
+Test case 1: Create an empty List, create an iterator, and then destroy them
+
+Note: No expected output for test cases 1-5, if correct.
+
+Test case 1: Create an empty List, create an iterator, and then destroy them
+
+Note: No expected output for test cases 1-5, if correct.
+
+Test case 4: SLInsert(list, item) into list twice and check return value: 
+
+Note: No expected output for test cases 1-5, if correct.
+
+Test case 5: SLRemove(list, item) twice and check return value: 
+
+Test case 9: Create a lot of iterators on a single list: 
+	Test9a: Iter got Alpha
+
+	Test9b: Iter got Bravo
+	Test9b: Iter got Alpha
+
+	Test9c: Iter got Charlie
+	Test9c: Iter got Bravo
+	Test9c: Iter got Alpha
+
+	Test9d: Iter got Delta
+	Test9d: Iter got Charlie
+	Test9d: Iter got Bravo
+	Test9d: Iter got Alpha
+
+	Test9e: Iter got Echo
+	Test9e: Iter got Delta
+	Test9e: Iter got Charlie
+	Test9e: Iter got Bravo
+	Test9e: Iter got Alpha
+
+
+Note: No expected output for test cases 1-5, if correct.
+
+Test case 1: Create an empty List, create an iterator, and then destroy them
+
+Note: No expected output for test cases 1-5, if correct.
+
+Test case 1: Create an empty List, create an iterator, and then destroy them
+
+Note: No expected output for test cases 1-5, if correct.
+
+Test case 5: SLRemove(list, item) twice and check return value: 
